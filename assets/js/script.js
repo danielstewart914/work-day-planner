@@ -4,6 +4,8 @@ var timeBlocks = [];
 
 const saveChar = '&#128190;';
 
+var now = moment();
+
 function displayTimeBlocks() {
 
     for ( var i = 9; i <= 17; i++ ) {
@@ -12,6 +14,8 @@ function displayTimeBlocks() {
         var hourEl = $( '<div>' );
         var textAreaEl = $( '<textarea>' );
         var saveButtonEl = $( '<button>' );
+
+        var hour = now.hour()
 
         rowEl.addClass( 'row mx-2' );
         hourEl.addClass( 'hour col-2 col-md-1' );
@@ -34,6 +38,20 @@ function displayTimeBlocks() {
 
         }
 
+        if ( i < hour ) {
+
+            textAreaEl.addClass( 'past' );
+
+        } else if ( i === hour ) {
+
+            textAreaEl.addClass( 'present' );
+
+        } else {
+
+            textAreaEl.addClass( 'future' );
+
+        }
+
         rowEl.append( hourEl );
         rowEl.append( textAreaEl );
         rowEl.append( saveButtonEl );
@@ -44,6 +62,6 @@ function displayTimeBlocks() {
 
 }
 
-currentDayEl.text( moment().format( 'dddd MMMM Do YYYY' ) );
+currentDayEl.text( now.format( 'dddd MMMM Do YYYY' ) );
 
 displayTimeBlocks();
