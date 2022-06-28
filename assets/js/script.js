@@ -49,7 +49,7 @@ function pastPresentOrFuture( now, hour ) {
 
 function displayTimeBlocks() {
 
-    var timeBlockFrag = $( document.createDocumentFragment() );
+    var calendarFrag = $( document.createDocumentFragment() );
 
     // iterate from hour 9 to 15 and print time blocks to screen
     for ( var hourBlock = 9; hourBlock <= 17; hourBlock++ ) {
@@ -69,7 +69,7 @@ function displayTimeBlocks() {
 
         // add save char and data hour to each save button
         saveButtonEl.html( saveChar );
-        saveButtonEl.attr( 'data-hour', hourBlock );
+        saveButtonEl.data( 'hour', hourBlock );
 
         // fill time blocks with data from local storage
         textAreaEl.val( localStorage.getItem( 'hour-' + hourBlock, ) );
@@ -87,12 +87,12 @@ function displayTimeBlocks() {
         rowEl.append( saveButtonEl );
 
         // append row to document fragment
-        timeBlockFrag.append( rowEl );
+        calendarFrag.append( rowEl );
 
     }
 
-    // set time block containers contents to time block fragment
-    timeBlockContainerEl.html( timeBlockFrag );
+    // set time block containers contents to time calendar fragment
+    timeBlockContainerEl.html( calendarFrag );
 
 }
 
