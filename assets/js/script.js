@@ -1,6 +1,5 @@
 var timeBlockContainerEl = $( '#time-block-container' );
 var currentDayEl = $( '#currentDay' );
-var timeBlocks = [];
 
 const saveChar = '&#128190;';
 
@@ -79,17 +78,20 @@ function displayTimeBlocks() {
         // print hour to screen
         hourEl.text( from24to12hour( hourBlock ) + isAMorPM( hourBlock ) );
 
-        // check if hour block is in the past present or future
+        // check if hour block is in the past present or future and add corresponding class
         textAreaEl.addClass( pastPresentOrFuture( currentHour, hourBlock ) );
 
+        // append hour, text area and button to current row
         rowEl.append( hourEl );
         rowEl.append( textAreaEl );
         rowEl.append( saveButtonEl );
 
+        // append row to document fragment
         timeBlockFrag.append( rowEl );
 
     }
 
+    // set time block containers contents to time block fragment
     timeBlockContainerEl.html( timeBlockFrag );
 
 }
