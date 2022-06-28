@@ -62,10 +62,10 @@ function displayTimeBlocks() {
         var currentHour = now.hour()
 
         // add classes to newly created elements
-        rowEl.addClass( 'row mx-2' );
-        hourEl.addClass( 'hour col-2 col-md-1' );
-        textAreaEl.addClass( 'col-8 col-md-10' );
-        saveButtonEl.addClass( 'saveBtn col-2 col-md-1 text-center border-0' );
+        rowEl.addClass( 'row mx-1 mx-sm-0' );
+        hourEl.addClass( 'hour col-2 col-lg-1' );
+        textAreaEl.addClass( 'col-8 col-lg-10' );
+        saveButtonEl.addClass( 'saveBtn col-2 col-lg-1 text-center border-0' );
 
         // add save char and data hour to each save button
         saveButtonEl.html( saveChar );
