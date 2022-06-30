@@ -2,8 +2,26 @@ var timeBlockContainerEl = $( '#time-block-container' );
 var currentDayEl = $( '#currentDay' );
 
 const saveChar = '&#128190;';
+const oneMinute = 1000 * 60;
 
 var now = moment();
+
+// run update once per minute
+var updateEveryMinute = setInterval( function () {
+
+    // get current moment
+    now = moment();
+
+    // if current minute is the start of an hour
+    if ( now.minute() === 0 ) {
+
+        // update colors on text areas
+        updatePastPresentFuture( now.hour() );
+        console.log( now );
+
+    }
+
+}, oneMinute );
 
 // returns am or pm if given a hour
 function isAMorPM( hour ) {
@@ -47,6 +65,37 @@ function pastPresentOrFuture( now, hour ) {
     }
 
     return 'future';
+
+}
+
+function updatePastPresentFuture( now ) {
+
+    var previousHour = now - 1;
+
+    // select text area with data-hour matching previous hour
+    var prevTextArea =  $( 'textarea' ).filter( function () {
+
+        return $( this ).data( 'hour' ) === previousHour;
+    
+    } );
+
+    console.log( prevTextArea );
+
+    // update classes on selected element
+    prevTextArea.removeClass( 'present' );
+    prevTextArea.addClass( 'past' );
+
+
+    // select text area with data-hour matching current hour
+    var currentTextArea =  $( 'textarea' ).filter( function () {
+
+        return $( this ).data( 'hour' ) === now;
+    
+    } );
+
+    // update classes on selected element
+    currentTextArea.removeClass( 'future' );
+    currentTextArea.addClass( 'present' );
 
 }
 
