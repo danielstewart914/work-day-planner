@@ -5,6 +5,7 @@ const saveChar = '&#128190;';
 
 var now = moment();
 
+// returns am or pm if given a hour
 function isAMorPM( hour ) {
 
     if ( hour < 12 ) {
@@ -17,6 +18,7 @@ function isAMorPM( hour ) {
 
 }
 
+// returns hour converted from 24 hour time to 12 hour time
 function from24to12hour( hour ) {
 
     if( hour > 12 ) {
@@ -29,6 +31,7 @@ function from24to12hour( hour ) {
 
 }
 
+// returns past present or future when given 
 function pastPresentOrFuture( now, hour ) {
 
     if ( hour < now ) {
@@ -59,7 +62,7 @@ function displayTimeBlocks() {
         var textAreaEl = $( '<textarea>' );
         var saveButtonEl = $( '<button>' );
 
-        var currentHour = now.hour()
+        var currentHour = now.hour();
 
         // add classes to newly created elements
         rowEl.addClass( 'row mx-1 mx-sm-0' );
@@ -67,9 +70,10 @@ function displayTimeBlocks() {
         textAreaEl.addClass( 'col-8 col-lg-10' );
         saveButtonEl.addClass( 'saveBtn col-2 col-lg-1 text-center border-0' );
 
-        // add save char and data hour to each save button
+        // add save char and data hour to each save button and text area
         saveButtonEl.html( saveChar );
         saveButtonEl.data( 'hour', hourBlock );
+        textAreaEl.data( 'hour', hourBlock );
 
         // fill time blocks with data from local storage
         textAreaEl.val( localStorage.getItem( 'hour-' + hourBlock, ) );
