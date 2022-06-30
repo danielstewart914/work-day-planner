@@ -17,7 +17,6 @@ var updateEveryMinute = setInterval( function () {
 
         // update colors on text areas
         updatePastPresentFuture( now.hour() );
-        console.log( now );
 
     }
 
