@@ -78,8 +78,6 @@ function updatePastPresentFuture( now ) {
     
     } );
 
-    console.log( prevTextArea );
-
     // update classes on selected element
     prevTextArea.removeClass( 'present' );
     prevTextArea.addClass( 'past' );
