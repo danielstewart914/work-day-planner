@@ -23,15 +23,15 @@ var updateEveryMinute = setInterval( function () {
 }, oneMinute );
 
 // returns past present or future when given 
-function pastPresentOrFuture( now, hour ) {
+function pastPresentOrFuture( currentHour, hour ) {
 
-    if ( hour < now ) {
+    if ( hour < currentHour ) {
 
         return 'past';
 
     }
 
-    if ( hour  === now ) {
+    if ( hour  === currentHour ) {
 
         return 'present';
 
@@ -68,6 +68,18 @@ function updatePastPresentFuture( currentHour ) {
     currentTextArea.removeClass( 'future' );
     currentTextArea.addClass( 'present' );
 
+    
+    // if current hour is midnight reset all hour blocks to future
+    if ( !currentHour ) {
+
+        var allTextBlocks = $( 'textarea' );
+
+        allTextBlocks.removeClass( 'past' );
+        allTextBlocks.addClass( 'future' );
+
+    } 
+
+
 }
 
 function displayTimeBlocks() {
@@ -98,7 +110,7 @@ function displayTimeBlocks() {
         // fill time blocks with data from local storage
         textAreaEl.val( localStorage.getItem( 'hour-' + hourBlock, ) );
 
-        // print hour block time to screen
+        // print hour block time to hour div
         hourEl.text( moment().hour( hourBlock ).format( 'ha' ) );
 
         // check if hour block is in the past present or future and add corresponding class
