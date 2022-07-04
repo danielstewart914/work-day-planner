@@ -22,32 +22,6 @@ var updateEveryMinute = setInterval( function () {
 
 }, oneMinute );
 
-// returns am or pm if given a hour
-function isAMorPM( hour ) {
-
-    if ( hour < 12 ) {
-
-        return 'am';
-
-    }
-
-    return 'pm';
-
-}
-
-// returns hour converted from 24 hour time to 12 hour time
-function from24to12hour( hour ) {
-
-    if( hour > 12 ) {
-
-        return hour - 12;
-
-    }
-
-    return hour;
-
-}
-
 // returns past present or future when given 
 function pastPresentOrFuture( now, hour ) {
 
@@ -67,9 +41,9 @@ function pastPresentOrFuture( now, hour ) {
 
 }
 
-function updatePastPresentFuture( now ) {
+function updatePastPresentFuture( currentHour ) {
 
-    var previousHour = now - 1;
+    var previousHour = currentHour - 1;
 
     // select text area with data-hour matching previous hour
     var prevTextArea =  $( 'textarea' ).filter( function () {
@@ -86,7 +60,7 @@ function updatePastPresentFuture( now ) {
     // select text area with data-hour matching current hour
     var currentTextArea =  $( 'textarea' ).filter( function () {
 
-        return $( this ).data( 'hour' ) === now;
+        return $( this ).data( 'hour' ) === currentHour;
     
     } );
 
@@ -100,7 +74,7 @@ function displayTimeBlocks() {
 
     var calendarFrag = $( document.createDocumentFragment() );
 
-    // iterate from hour 9 to 15 and print time blocks to screen
+    // iterate from hour 9 to 15 and print time blocks to calendar fragment
     for ( var hourBlock = 9; hourBlock <= 17; hourBlock++ ) {
 
         var rowEl = $( '<div>' );
@@ -124,9 +98,8 @@ function displayTimeBlocks() {
         // fill time blocks with data from local storage
         textAreaEl.val( localStorage.getItem( 'hour-' + hourBlock, ) );
 
-
-        // print hour to screen
-        hourEl.text( from24to12hour( hourBlock ) + isAMorPM( hourBlock ) );
+        // print hour block time to screen
+        hourEl.text( moment().hour( hourBlock ).format( 'ha' ) );
 
         // check if hour block is in the past present or future and add corresponding class
         textAreaEl.addClass( pastPresentOrFuture( currentHour, hourBlock ) );
@@ -141,7 +114,7 @@ function displayTimeBlocks() {
 
     }
 
-    // set time block containers contents to time calendar fragment
+    // set time block container's contents to time calendar fragment
     timeBlockContainerEl.html( calendarFrag );
 
 }
