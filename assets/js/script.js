@@ -22,7 +22,7 @@ var updateEveryMinute = setInterval( function () {
 
 }, oneMinute );
 
-// returns past present or future when given 
+// returns 'past' 'present' or 'future' when given current hour and hour
 function pastPresentOrFuture( currentHour, hour ) {
 
     if ( hour < currentHour ) {
@@ -78,7 +78,6 @@ function updatePastPresentFuture( currentHour ) {
         allTextBlocks.addClass( 'future' );
 
     } 
-
 
 }
 
